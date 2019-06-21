@@ -6,7 +6,8 @@
 
 struct ofxLSLSample {
 	float timestamp = 0.0;
-	std::vector<float> sample;
+	//std::vector<float> sample;
+	std::vector<string> sample;
 };
 
 struct ofxStability {
@@ -53,7 +54,9 @@ private:
 	void pullSamples();
 	void pullStability();
 	bool active;
-	std::vector<float> sample_buffer;
+	double starttime;
+	//	std::vector<float> sample_buffer;
+	std::vector<string> sample_buffer;
 	std::vector< pair<string, string> > sample_mapping;
 	
 	std::vector< std::unique_ptr<lsl::stream_inlet> > stability_inlets;

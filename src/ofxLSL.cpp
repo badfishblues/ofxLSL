@@ -20,11 +20,14 @@ bool ofxLSL::stop() {
 }
 
 void ofxLSL::update() {
+	ofLogNotice() << "ofxLSL::update()";
 	while(active) {
 		try {
 			if(inlet == nullptr) {
+				ofLogNotice() << "ofxLSL::connect()";
 				connect();
 			} else {
+				//ofLogNotice() << "Pulling";
 				pullSamples();
 				pullStability();
 			}
@@ -49,14 +52,18 @@ void ofxLSL::disconnect() {
 }
 
 void ofxLSL::connect() {
-	auto streams = lsl::resolve_stream("desc/correlation", "R", 1, 2.f);
-	if(streams.size() == 0) return;
-	
+	//auto streams = lsl::resolve_stream("desc/correlation", "R", 1, 2.f);
+	auto streams = lsl::resolve_stream("name='resstr'");
+	if (streams.size() == 0) {
+		ofLogNotice() << "No Streams Found";
+		return;
+	}
 	std::lock_guard<std::mutex> lock(mutex);
 	inlet = std::make_unique<lsl::stream_inlet>(streams.front(), 360, 0, false);
 	
 	auto info = inlet->info(1.0f);
-	
+	starttime = lsl::local_clock();
+
 	ofLogNotice() << "Connecting to " << info.name() << " at " << info.nominal_srate() << "hz";
 	buffer.reserve(250.0);
 	sample_buffer.reserve(info.channel_count());
@@ -76,7 +83,8 @@ void ofxLSL::connect() {
 					sample_mapping.emplace_back(mapElement);
 				} } } }
 	
-	auto Qstreams = lsl::resolve_stream("desc/correlation", "Stability", 1, 2.f);
+	//auto Qstreams = lsl::resolve_stream("desc/correlation", "Stability", 1, 2.f);
+	auto Qstreams = lsl::resolve_stream("name='resstr'");
 
 	std::vector<lsl::stream_info> resolvedStreams = lsl::resolve_streams(1.0);
 	
@@ -108,8 +116,9 @@ void ofxLSL::pullSamples() {
 		ofLogVerbose() << "Received sample";
 		
 		ofxLSLSample sample;
-		sample.timestamp = ts;
-		sample.sample = std::vector<float>(sample_buffer.begin(), sample_buffer.end());
+		sample.timestamp = ts - inlet->time_correction(1) - starttime;
+		//changed to vector of strings
+		sample.sample = std::vector<string>(sample_buffer.begin(), sample_buffer.end());
 		
 		std::lock_guard<std::mutex> lock(mutex);
 		while(buffer.size() && buffer.size() >= buffer.capacity()) {
