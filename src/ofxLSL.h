@@ -48,6 +48,7 @@ public:
 		return stabilities;
 	};
 	
+	bool isActive() { return active; }
 private:
 	
 	void update();

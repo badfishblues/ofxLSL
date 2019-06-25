@@ -62,6 +62,7 @@ void ofxLSL::connect() {
 	
 	auto info = inlet->info(1.0f);
 	starttime = lsl::local_clock();
+	//ofLogNotice() << ofToString(starttime, 15) << '\t' << ofToString(inlet->time_correction(1), 15) << '\n';
 
 	ofLogNotice() << "Connecting to " << info.name() << " at " << info.nominal_srate() << "hz";
 	buffer.reserve(250.0);
@@ -109,12 +110,13 @@ void ofxLSL::connect() {
 }
 
 void ofxLSL::pullSamples() {
-	float ts = inlet->pull_sample(sample_buffer, 1.0);
+	double ts = inlet->pull_sample(sample_buffer, 1.0);
 	if(ts) {
 		ofLogVerbose() << "Received sample";
 		
 		ofxLSLSample sample;
-		sample.timestamp = ts - inlet->time_correction(1) - starttime;
+		//sample.timestamp = ts - inlet->time_correction(1) - starttime;
+		sample.timestamp = ts - inlet->time_correction(1);
 		//changed to vector of strings
 		sample.sample = std::vector<string>(sample_buffer.begin(), sample_buffer.end());
 		
