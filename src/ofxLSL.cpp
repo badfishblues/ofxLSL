@@ -26,7 +26,7 @@ void ofxLSL::update() {
 				ofLogNotice() << "ofxLSL::connect()";
 				connect();
 			} else {
-				//ofLogNotice() << "Pulling";
+				ofLogNotice() << "Pulling";
 				pullSamples();
 				pullStability();
 			}

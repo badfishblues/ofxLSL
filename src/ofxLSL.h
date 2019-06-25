@@ -18,7 +18,8 @@ struct ofxStability {
 class ofxLSL : public ofThread {
 	
 public:
-	static const char * resInletInfo;
+	//static const char * resInletInfo;
+	string resInletInfo = "name='Default'";
 
 	ofxLSL();
 	~ofxLSL() { stop(); };
