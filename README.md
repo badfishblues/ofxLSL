@@ -1,7 +1,6 @@
 # About ofxLSL
 #### Dependency
-- In order to run the example, liblsl64 must be in the same folder as the compiled .exe
-	- In the case of the example, this is the bin folder of the app
+- In order to run the example, liblsl64.dll must be in the app bin folder with the compiled .exe
 - Because lsl libaries are written for x64 systems, ensure that Visual Studio Platforms are set to x64
 #### resolvestreams() arguments
 - **name**
