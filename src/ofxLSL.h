@@ -49,6 +49,10 @@ public:
 	};
 	
 	bool isActive() { return active; }
+	bool getTimeCor() {
+		std::lock_guard<std::mutex> lock(mutex);
+		return inlet->time_correction(1);
+	}
 private:
 	
 	void update();

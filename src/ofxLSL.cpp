@@ -116,7 +116,8 @@ void ofxLSL::pullSamples() {
 		
 		ofxLSLSample sample;
 		//sample.timestamp = ts - inlet->time_correction(1) - starttime;
-		sample.timestamp = ts + inlet->time_correction(1);
+		//sample.timestamp = ts + inlet->time_correction(1);
+		sample.timestamp = ts;
 		//changed to vector of strings
 		sample.sample = std::vector<string>(sample_buffer.begin(), sample_buffer.end());
 		
