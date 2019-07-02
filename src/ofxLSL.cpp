@@ -131,13 +131,11 @@ void ofxLSL::pullSamples() {
 #endif
 
 void ofxLSL::pullSamples() {
-	double lc = lsl::local_clock();
 	double ts = inlet->pull_sample(sample_buffer, 1.0);
 	if (ts) {
 		ofxLSLSample sample;
 		sample.timestampLocal = ts + inlet->time_correction(1);
-		//sample.localClock = lsl::local_clock();
-		sample.localClock = lc;
+		sample.localClock = lsl::local_clock();
 		sample.timestamp = ts;
 		//sample.timestamp = ts - inlet->time_correction(1) - starttime;
 		
