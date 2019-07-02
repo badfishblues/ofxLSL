@@ -109,14 +109,12 @@ void ofxLSL::connect() {
 	}
 }
 
+#if 0
 void ofxLSL::pullSamples() {
 	double ts = inlet->pull_sample(sample_buffer, 1.0);
 	if(ts) {
 		ofLogVerbose() << "Received sample";
-		
 		ofxLSLSample sample;
-		//sample.timestamp = ts - inlet->time_correction(1) - starttime;
-		//sample.timestamp = ts + inlet->time_correction(1);
 		sample.timestamp = ts;
 		//changed to vector of strings
 		sample.sample = std::vector<string>(sample_buffer.begin(), sample_buffer.end());
@@ -127,6 +125,30 @@ void ofxLSL::pullSamples() {
 			buffer.erase(buffer.begin());
 		}
 		
+		buffer.push_back(sample);
+	}
+}
+#endif
+
+void ofxLSL::pullSamples() {
+	double ts = inlet->pull_sample(sample_buffer, 1.0);
+	if (ts) {
+		ofxLSLSample sample;
+		sample.timestampLocal = ts + inlet->time_correction(1);
+		sample.localClock = lsl::local_clock();
+		sample.timestamp = ts;
+		//sample.timestamp = ts - inlet->time_correction(1) - starttime;
+		
+		ofLogVerbose() << "Received sample";
+		//changed to vector of strings
+		sample.sample = std::vector<string>(sample_buffer.begin(), sample_buffer.end());
+
+		std::lock_guard<std::mutex> lock(mutex);
+		while (buffer.size() && buffer.size() >= buffer.capacity()) {
+			ofLogWarning() << "Buffer capacity reached";
+			buffer.erase(buffer.begin());
+		}
+
 		buffer.push_back(sample);
 	}
 }
