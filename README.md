@@ -1,7 +1,25 @@
 # About ofxLSL
+
 #### Dependency
 - In order to run the example, liblsl64.dll must be in the app bin folder with the compiled .exe
 - Because lsl libaries are written for x64 systems, ensure that Visual Studio Platforms are set to x64
+
+#### Accuracy
+- timestamp,_TS_, is 100% accurate
+- timestampLocal, _TSC_, periodicity is at worst accurate to 1.8ms
+  - average: 19 microseconds
+- localClock, _LC_, periodicity is rather unreliable (>300ms)
+- Can be more accurate if tags are sent and recieved on same computer
+
+####Python Tag Code
+- **Marker.py**
+  - begins stream that alternates printing "Hello" and "World"
+  - Tags sent aproximately ever 1.5 sec
+- **MarkerCSV.py**
+  - same basic function as Marker.py
+  - writes the timestamps of the tags to an external file, _sentInfo.csv_
+- These functions can be used to test the basic functionality of ofxLSL
+
 #### resolvestreams() arguments
 - **name**
   - Name of the stream. Describes the device (or product series) that this stream makes available (for use by programs, experimenters or data analysts)
