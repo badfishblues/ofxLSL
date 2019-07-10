@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\..\addons\ofxLSL\src\ofxLSL.cpp">
+			<Filter>addons\ofxLSL\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLSL">
+			<UniqueIdentifier>{E430D85D-EA0C-5184-7E9B-BB5E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLSL\src">
+			<UniqueIdentifier>{763B5CC1-EAEB-7EDB-9673-C1CF}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLSL\libs">
+			<UniqueIdentifier>{4AA100E8-4E65-39BA-41AD-6742}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLSL\libs\labstreaminglayer">
+			<UniqueIdentifier>{52EB1F93-04D9-D92F-9F26-03E3}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxLSL\libs\labstreaminglayer\include">
+			<UniqueIdentifier>{CE14D52E-4C21-4A37-981F-9A42}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\..\addons\ofxLSL\src\ofxLSL.h">
+			<Filter>addons\ofxLSL\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\..\addons\ofxLSL\libs\labstreaminglayer\include\lsl_c.h">
+			<Filter>addons\ofxLSL\libs\labstreaminglayer\include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\..\addons\ofxLSL\libs\labstreaminglayer\include\lsl_cpp.h">
+			<Filter>addons\ofxLSL\libs\labstreaminglayer\include</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
+</Project>

@@ -4,9 +4,18 @@
 #include "ofLog.h"
 #include "lsl_cpp.h"
 
+#if 0
 struct ofxLSLSample {
-	float timestamp = 0.0;
+	double timestamp = 0.0;
 	//std::vector<float> sample;
+	std::vector<string> sample;
+};
+#endif
+
+struct ofxLSLSample {
+	double timestamp = 0.0;
+	double timestampLocal = 0.0;
+	double localClock = 0.0;
 	std::vector<string> sample;
 };
 
@@ -49,6 +58,10 @@ public:
 	};
 	
 	bool isActive() { return active; }
+	bool getTimeCor() {
+		std::lock_guard<std::mutex> lock(mutex);
+		return inlet->time_correction(1);
+	}
 private:
 	
 	void update();
