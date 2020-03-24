@@ -13,7 +13,9 @@ bool ofxLSL::stop() {
 	if(!active) return false;
 	
 	active = false;
-	thread->join();
+	if (thread != nullptr && thread->joinable())	{
+		thread->join();
+	}
 	thread = nullptr;
 	return true;
 }
@@ -52,7 +54,7 @@ void ofxLSL::disconnect() {
 
 void ofxLSL::connect() {
 	//auto streams = lsl::resolve_stream("desc/correlation", "R", 1, 2.f);
-	auto streams = lsl::resolve_stream(resInletInfo);
+	auto streams = lsl::resolve_stream(resInletInfo, 1, 1);
 	if (streams.size() == 0) {
 		ofLogNotice() << "No Streams Found";
 		return;
